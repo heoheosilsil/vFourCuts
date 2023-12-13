@@ -44,6 +44,8 @@ num_repeats = 4
 image_height, image_width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))  # Adjust to the actual image size used
 combined_image = np.zeros((2 * image_height, 2 * image_width, 3), dtype=np.uint8)
 
+countdown = False
+
 for row in range(2):
     for col in range(2):
         countdown_start_time = time.time()
@@ -56,6 +58,9 @@ for row in range(2):
 
             # Countdown for 5 seconds when 2 finger is detected
             if num_fingers == 2:
+                countdown = True
+            
+            if countdown:
                 countdown_elapsed_time = time.time() - countdown_start_time
                 countdown_remaining_time = max(0, countdown_time - int(countdown_elapsed_time))
 
@@ -63,6 +68,7 @@ for row in range(2):
                     # Combine images after counting down for 5 seconds
                     combined_image[row * image_height:(row + 1) * image_height, col * image_width:(col + 1) * image_width] = frame
                     print('Photo taken!')
+                    countdown = False
                     break
 
             # display text
