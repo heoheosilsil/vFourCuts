@@ -41,7 +41,7 @@ countdown_time = 5
 num_repeats = 4
 
 # Size and initialization of image files to be saved
-image_height, image_width = 1080, 1920  # Adjust to the actual image size used
+image_height, image_width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)), int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))  # Adjust to the actual image size used
 combined_image = np.zeros((2 * image_height, 2 * image_width, 3), dtype=np.uint8)
 
 for row in range(2):
